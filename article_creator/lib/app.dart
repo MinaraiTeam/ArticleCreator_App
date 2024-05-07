@@ -1,6 +1,7 @@
 
 import 'package:article_creator/pages/homePage.dart';
 import 'package:article_creator/pages/articleBuilder.dart';
+import 'package:article_creator/pages/endPage.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatefulWidget {
