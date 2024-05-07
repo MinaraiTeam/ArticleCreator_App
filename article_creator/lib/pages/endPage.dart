@@ -1,15 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:article_creator/others/AppData.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key});
+class EndPage extends StatefulWidget {
+  const EndPage({Key? key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<EndPage> createState() => _EndPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _EndPageState extends State<EndPage> {
   @override
   Widget build(BuildContext context) {
     AppData appData = Provider.of<AppData>(context, listen: false);
@@ -30,7 +33,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            article_creator(context),
+            _endPage(context) 
           ],
         ),
       ),
@@ -38,29 +41,42 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget article_creator(BuildContext context) {
+Widget _endPage(BuildContext context) {
   AppData appData = Provider.of<AppData>(context);
+
+  final TextEditingController titleController = TextEditingController();
 
   return Center(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "ARTICLES",
+          "Title",
           style: TextStyle(
             fontWeight: FontWeight.bold,
+            fontSize: 15,
           ),
         ),
-        const SizedBox(height: 15),
-        ElevatedButton(
-          onPressed: () => appData.createArticle(context), 
-          child: const Text("Create"),
+        const SizedBox(height: 10),
+        TextField(
+          controller: titleController,
+          autofocus: true,
         ),
-        const SizedBox(height: 5),
-        ElevatedButton(
-          onPressed: () => appData.loginPopup(context), 
-          child: const Text("Login"),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(width: 8),
+            ElevatedButton(
+              onPressed: () { 
+                appData.title = titleController.text;
+                appData.notifyListeners();
+              },
+              child: const Text("DONE"),
+            ),
+            const SizedBox(width: 8),
+          ],
         ),
       ],
     ),

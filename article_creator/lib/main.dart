@@ -27,5 +27,5 @@ void main() async {
 
 void showWindow(_) async {
   windowManager.setMinimumSize(const Size(400.0, 600.0));
-  await windowManager.setTitle('LeagueManager - JMartin');
+  await windowManager.setTitle('ArticleCreator - MInaraiTeam');
 }
