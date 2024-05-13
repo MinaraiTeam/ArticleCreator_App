@@ -44,41 +44,99 @@ class _EndPageState extends State<EndPage> {
 Widget _endPage(BuildContext context) {
   AppData appData = Provider.of<AppData>(context);
 
-  final TextEditingController titleController = TextEditingController();
-
   return Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Title",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-        ),
-        const SizedBox(height: 10),
-        TextField(
-          controller: titleController,
-          autofocus: true,
-        ),
-        const SizedBox(height: 10),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(width: 8),
-            ElevatedButton(
-              onPressed: () { 
-                appData.title = titleController.text;
-                appData.notifyListeners();
-              },
-              child: const Text("DONE"),
+    child: Padding(
+      padding: const EdgeInsets.only(left: 8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Last configurations",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
             ),
-            const SizedBox(width: 8),
-          ],
-        ),
-      ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              const Text("Category:"),
+              const SizedBox(width: 10,),
+              DropdownButton<String>(
+                hint: Text('Choose a category'),
+                value: appData.selectedCategory,
+                onChanged: (String? newValue) {
+                  appData.selectedCategory = newValue;
+                  appData.notifyListeners();
+                },
+                items: appData.categories.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(option),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Text("Language:"),
+              const SizedBox(width: 10,),
+              DropdownButton<String>(
+                hint: Text('Choose a language'),
+                value: appData.selectedLanguage,
+                onChanged: (String? newValue) {
+                  appData.selectedLanguage = newValue;
+                  appData.notifyListeners();
+                },
+                items: appData.languages.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(option),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Text("Country:"),
+              const SizedBox(width: 10,),
+              DropdownButton<String>(
+                hint: Text('Choose a country'),
+                value: appData.selectedCountry,
+                onChanged: (String? newValue) {
+                  appData.selectedCountry = newValue;
+                  appData.notifyListeners();
+                },
+                items: appData.countries.map((String option) {
+                  return DropdownMenuItem<String>(
+                    value: option,
+                    child: Text(option),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(width: 8),
+              ElevatedButton(
+                onPressed: () { 
+                  // send
+                  print("send");
+                  appData.prepareToSend(context);
+                },
+                child: const Text("DONE"),
+              ),
+              const SizedBox(width: 8),
+            ],
+          ),
+        ],
+      ),
     ),
   );
 }

@@ -133,11 +133,6 @@ Widget _articlePreviewImage(BuildContext context) {
               child: const Text("Image"),
             ),
             const SizedBox(width: 8),
-            ElevatedButton(
-              onPressed: () => appData.changeToEndPage(context), 
-              child: const Text("End"),
-            ),
-            const SizedBox(width: 8),
           ],
         ),
         const Divider(),
@@ -197,7 +192,7 @@ Widget _articleText(BuildContext context) {
             ),
             const SizedBox(width: 8),
             ElevatedButton(
-              onPressed: () => appData.prepareToSend(), 
+              onPressed: () => appData.changeToEndPage(context), 
               child: const Text("End"),
             ),
             const SizedBox(width: 8),
